@@ -1,0 +1,5 @@
+## Base libraries
+flask
+flask-restful
+pymysql
+flask-mysql
