@@ -54,6 +54,17 @@ def get_allRealMCAD():
     resp.status_code=200
     return resp
 
+@app.route('/realValueTCAunique/<sec>&<tipoActa>', methods=['POST', 'GET'])
+def get_RealTCABySecATipoAct(sec,tipoActa):
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+    cur.execute('SELECT P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,C1,C2,C3,C4,CNoReg,VotNulos,Tot1,Tot2 FROM ServiceTable WHERE Sec = %s AND TipoActa = %s ;',(sec,tipoActa))
+    rows = cur.fetchall()
+    cur.close()
+    resp = jsonify(rows)
+    resp.status_code=200
+    return resp
+
 #  ** VERSION PARA PROTRACTOR **
 # @app.route('/history', methods=['POST'])
 # def add_paymentInfo():
@@ -76,20 +87,39 @@ def get_allRealMCAD():
 #         resp.status_code=200
 #         return resp
 
-@app.route('/addActivity', methods=['POST'])
-def update_serviceActivity():
+@app.route('/addTCAt1jsonData', methods=['POST'])
+def update_serviceActivity1():
     if request.method == 'POST':
         json_data = request.get_json()
-        userId = json_data['userId']
-        ipAddres = json_data['ipAddres']
-        dateService = datetime.datetime.now()
+        sec = json_data['Sec']
+        tipoActa = json_data['TipoActa']
+        ipTCA1 = json_data['IpTCA1']
+        fechaTCA1 = datetime.datetime.now()
+        usuarioTCA1 = json_data['UsuarioTCA1']
         print (dateService)  
         conn = mysql.connect()
         cur = conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute('UPDATE INTO activityHis (dateService,ipAddres,userId) VALUES (%s,%s,%s)', (dateService,ipAddres,userId))
+        cur.execute('UPDATE ServiceTable SET IpTCA1 = %s ,UsuarioTCA1 = %s , FechaTCA1 = %s WHERE Sec = %s AND TipoActa = %s ;', (ipTCA1,usuarioTCA1,fechaTCA1,sec,tipoActa))
         conn.commit()
         resp = jsonify(cur.rowcount)
         print (resp)
+        resp.status_code=200
+        return resp
+
+@app.route('/addTCAt1', methods=['POST'])
+def update_serviceActivity2():
+    if request.method == 'POST':
+        sec = request.json['Sec']
+        tipoActa = request.json['TipoActa']
+        ipTCA1 = request.json['IpTCA1']
+        fechaTCA1 = datetime.datetime.now()
+        usuarioTCA1 = request.json['UsuarioTCA1']
+        print (dateService)  
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute('UPDATE ServiceTable SET IpTCA1 = %s ,UsuarioTCA1 = %s , FechaTCA1 = %s WHERE Sec = %s AND TipoActa = %s ;', (ipTCA1,usuarioTCA1,fechaTCA1,sec,tipoActa))
+        conn.commit()
+        resp = jsonify(cur.rowcount)
         resp.status_code=200
         return resp
     
