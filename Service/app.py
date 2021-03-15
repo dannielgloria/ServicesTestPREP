@@ -18,7 +18,7 @@ mysql = MySQL()
 # app.config['MYSQL_DATABASE_DB'] = 'INEDATABASE'
 # app.config['MYSQL_DATABASE_HOST'] = '127.0.0.1'
 
-app.config['MYSQL_DATABASE_USER'] = ' u917498081_servicedb'
+app.config['MYSQL_DATABASE_USER'] = 'u917498081_servicedb'
 app.config['MYSQL_DATABASE_PASSWORD'] = '$|OS8YaC/r5I'
 app.config['MYSQL_DATABASE_DB'] = "u917498081_INEDATABASE'
 app.config['MYSQL_DATABASE_HOST'] = '31.220.104.219'
