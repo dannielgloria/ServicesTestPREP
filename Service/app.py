@@ -13,10 +13,15 @@ mysql = MySQL()
 # Generating the configuration to the connection to the DB
 # Change the values of each config according to your credentials from your local DB
 ##
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = '2133010323Gl?'
-app.config['MYSQL_DATABASE_DB'] = 'INEDATABASE'
-app.config['MYSQL_DATABASE_HOST'] = '127.0.0.1'
+# app.config['MYSQL_DATABASE_USER'] = 'root'
+# app.config['MYSQL_DATABASE_PASSWORD'] = '2133010323Gl?'
+# app.config['MYSQL_DATABASE_DB'] = 'INEDATABASE'
+# app.config['MYSQL_DATABASE_HOST'] = '127.0.0.1'
+
+app.config['MYSQL_DATABASE_USER'] = ' u917498081_servicedb'
+app.config['MYSQL_DATABASE_PASSWORD'] = '$|OS8YaC/r5I'
+app.config['MYSQL_DATABASE_DB'] = "u917498081_INEDATABASE'
+app.config['MYSQL_DATABASE_HOST'] = '31.220.104.219'
 
 
 mysql.init_app(app)
