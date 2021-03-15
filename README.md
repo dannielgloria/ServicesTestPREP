@@ -6,7 +6,7 @@
 
 -Development of API REST service for the use of end to end tests of the PREP system
 
--You need to install [python-3.8](https://www.python.org/downloads/release/python-380/)
+-You need to install [python-3.9.2](https://www.python.org/downloads/release/python-392/)
 
 -Install with pip3, for which it is important to be located within the root folder of the repository to execute the following command line
 
