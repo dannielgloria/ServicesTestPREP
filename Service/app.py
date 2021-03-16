@@ -7,16 +7,14 @@ from flaskext.mysql import MySQL
 
 # FLASK Instance my application
 app = Flask(__name__)
+PORT = 5000
+DEBUG = False
 mysql = MySQL()
 
 ##
 # Generating the configuration to the connection to the DB
 # Change the values of each config according to your credentials from your local DB
 ##
-# app.config['MYSQL_DATABASE_USER'] = 'root'
-# app.config['MYSQL_DATABASE_PASSWORD'] = '2133010323Gl?'
-# app.config['MYSQL_DATABASE_DB'] = 'INEDATABASE'
-# app.config['MYSQL_DATABASE_HOST'] = '127.0.0.1'
 
 app.config['MYSQL_DATABASE_USER'] = 'u917498081_servicedb'
 app.config['MYSQL_DATABASE_PASSWORD'] = '$|OS8YaC/r5I'
@@ -44,7 +42,7 @@ def get_historyService():
 #* This endpoint obtains the record by type of act.
 @app.route('/historyService/filterTipoActa=<tipoActa>', methods=['GET'])
 def get_historyServiceByTipoAct(tipoActa):
-    conn = mysql.connect(tipoActa)
+    conn = mysql.connect()
     cur = conn.cursor(pymysql.cursors.DictCursor)
     cur.execute('SELECT * FROM ServiceTable WHERE TipoActa = %s;', (tipoActa))
     rows = cur.fetchall()
@@ -55,7 +53,7 @@ def get_historyServiceByTipoAct(tipoActa):
 #* This endpoint obtains the record by type of act and Sec
 @app.route('/historyService/filterSec=<sec>&filterTipoActa=<tipoActa>', methods=['GET'])
 def get_historyServiceBySecTipoActa(sec,tipoActa):
-    conn = mysql.connect(tipoActa)
+    conn = mysql.connect()
     cur = conn.cursor(pymysql.cursors.DictCursor)
     cur.execute('SELECT * FROM ServiceTable WHERE Sec = %s AND TipoActa = %s ;', (sec,tipoActa))
     rows = cur.fetchall()
@@ -63,6 +61,16 @@ def get_historyServiceBySecTipoActa(sec,tipoActa):
     resp.status_code=200
     return resp
 
+#* This endpoint obtains the record by shaMCAD
+@app.route('/historyService/filterShaMCAD=<shaMCAD>', methods=['GET'])
+def get_historyServiceByshaMCAD(shaMCAD):
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+    cur.execute('SELECT * FROM ServiceTable WHERE ShaMCAD = %s ;', (shaMCAD))
+    rows = cur.fetchall()
+    resp = jsonify(rows)
+    resp.status_code=200
+    return resp
 
 ##
 #  MCAD application endpoints  
@@ -154,6 +162,16 @@ def get_allMCADbySecTipoActa(sec,tipoActa):
     resp.status_code=200
     return resp
 
+@app.route('/terminalMCAD/filterShaMCAD=<shaMCAD>', methods=['POST', 'GET'])
+def get_allMCADbyShaMCAD(shaMCAD):
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+    cur.execute('SELECT IpMCAD,UsuarioMCAD,FechaMCAD,Consec,TipoQR,Estado,Distrito,Seccion,Casilla,TipoActa, BolSob, PersVot, TotPVnRep FROM ServiceTable WHERE ShaMCAD = %s;',  (shaMCAD))
+    rows = cur.fetchall()
+    resp = jsonify(rows)
+    resp.status_code=200
+    return resp
+
 # #* This endpoint gets all the records of the MCAD terminal by type of record, Sec and if the record has an error.
 # @app.route('/terminalMCAD/filterSec=<sec>&filterTipoActa=<tipoActa>&Error<error>', methods=['POST', 'GET'])
 # def get_allMCADbySecTipoActaError(sec,tipoActa,error):
@@ -197,6 +215,29 @@ def get_aTCAbySecATipoAct(sec,tipoActa):
     conn = mysql.connect()
     cur = conn.cursor(pymysql.cursors.DictCursor)
     cur.execute('SELECT P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,C1,C2,C3,C4,CNoReg,VotNulos,Tot1,Tot2 FROM ServiceTable WHERE Sec = %s AND TipoActa = %s;',(sec,tipoActa))
+    rows = cur.fetchall()
+    cur.close()
+    resp = jsonify(rows)
+    resp.status_code=200
+    return resp
+
+@app.route('/ValuesTCA/filterShaMCAD=<shaMCAD>', methods=['POST', 'GET'])
+def get_aTCAbyShaMCAD(shaMCAD):
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+    cur.execute('SELECT P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,C1,C2,C3,C4,CNoReg,VotNulos,Tot1,Tot2 FROM ServiceTable WHERE ShaMCAD = %s;',(shaMCAD))
+    rows = cur.fetchall()
+    cur.close()
+    resp = jsonify(rows)
+    resp.status_code=200
+    return resp
+
+#* This endpoint gets all history from TCA terminal by type of record and Sec.
+@app.route('/HistoryTCA/filterShaMCAD=<shaMCAD>', methods=['POST', 'GET'])
+def get_historyTCAbyShaTCA(shaMCAD):
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+    cur.execute('SELECT IpTCA1, UsuarioTCA1, FechaTCA1, ErrorTCA1, IpTCA2, UsuarioTCA2, FechaTCA2, ErrorTCA2, IpTCA3, UsuarioTCA3, FechaTCA3, ErrorTCA3, IpTCA4, UsuarioTCA4, FechaTCA4, ErrorTCA4 FROM ServiceTable WHERE ShaMCAD = %s;',(shaMCAD))
     rows = cur.fetchall()
     cur.close()
     resp = jsonify(rows)
@@ -280,6 +321,59 @@ def update_tcaServiceActivityTerminalOne():
                         resp = jsonify(cur.rowcount)
                         resp.status_code=400
         return resp
+
+#* This endpoint creates add a service record to some terminal of the TCA
+@app.route('/addTCAbyShaMCAD', methods=['PUT'])
+def update_tcaServiceActivityTerminalbyShaMCAD():
+    if request.method == 'PUT':
+        json_data = request.get_json()
+        shaMCAD = json_data['ShaMCAD']
+        ipTCA = json_data['IpTCA']
+        fechaTCA = datetime.datetime.now()
+        usuarioTCA = json_data['UsuarioTCA']
+        errorTCA = json_data['ErrorTCA']  
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute('SELECT UsuarioTCA1 FROM ServiceTable WHERE ShaMCAD = %s;', (shaMCAD))
+        rows = cur.fetchone() # rows es un diccionario
+        usuario = str(rows['UsuarioTCA1']) #Guardamos el valor 
+        print(usuario)
+        if usuario == 'None':
+            cur.execute('UPDATE ServiceTable SET IpTCA1 = %s ,UsuarioTCA1 = %s,FechaTCA1 = %s , ErrorTCA1 = %s WHERE ShaMCAD = %s ;', (ipTCA,usuarioTCA,fechaTCA,errorTCA,shaMCAD))
+            conn.commit()
+            resp = jsonify(cur.rowcount)
+            resp.status_code=200
+        else:
+            cur.execute('SELECT UsuarioTCA2 FROM ServiceTable WHERE ShaMCAD = %s;', (shaMCAD))
+            rows = cur.fetchone() # rows es un diccionario
+            usuario = str(rows['UsuarioTCA2']) #Guardamos el valor 
+            if usuario == 'None':
+                cur.execute('UPDATE ServiceTable SET IpTCA2= %s ,UsuarioTCA2 = %s , FechaTCA2 = %s, ErrorTCA2 = %s WHERE ShaMCAD = %s ;', (ipTCA,usuarioTCA,fechaTCA,errorTCA,shaMCAD))
+                conn.commit()
+                resp = jsonify(cur.rowcount)
+                resp.status_code=200
+            else:
+                cur.execute('SELECT UsuarioTCA3 FROM ServiceTable WHERE ShaMCAD = %s;', (shaMCAD))
+                rows = cur.fetchone() # rows es un diccionario
+                usuario = str(rows['UsuarioTCA3']) #Guardamos el valor 
+                if usuario == 'None':
+                    cur.execute('UPDATE ServiceTable SET IpTCA3 = %s ,UsuarioTCA3 = %s , FechaTCA3 = %s, ErrorTCA3 = %s WHERE ShaMCAD = %s ;', (ipTCA,usuarioTCA,fechaTCA,errorTCA,shaMCAD))
+                    conn.commit()
+                    resp = jsonify(cur.rowcount)
+                    resp.status_code=200
+                else:
+                    cur.execute('SELECT UsuarioTCA4 FROM ServiceTable WHERE ShaMCAD = %s;', (shaMCAD))
+                    rows = cur.fetchone() # rows es un diccionario
+                    usuario = str(rows['UsuarioTCA4']) #Guardamos el valor 
+                    if usuario == 'None':
+                        cur.execute('UPDATE ServiceTable SET IpTCA4 = %s ,UsuarioTCA4 = %s , FechaTCA4 = %s, ErrorTCA4 = %s WHERE ShaMCAD = %s ;', (ipTCA,usuarioTCA,fechaTCA,errorTCA,shaMCAD))
+                        conn.commit()
+                        resp = jsonify(cur.rowcount)
+                        resp.status_code=200
+                    else:
+                        resp = jsonify(cur.rowcount)
+                        resp.status_code=400
+        return resp
     
 #* This endpoint creates add a service record to terminal three of the COT
 @app.route('/addCOT', methods=['PUT'])
@@ -299,6 +393,16 @@ def update_cotServiceActivity():
         print (resp)
         resp.status_code=200
         return resp
+
+@app.route('/upsi/filterSec=<sec>&filterTipoActa=<tipoActa>', methods=['DELETE'])
+def delete_actBy():
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+    cur.execute('DELETE FROM ServiceTable WHERE Sec = %s AND TipoAct = %s;',  (sec,tipoActa))
+    rows = cur.fetchall()
+    resp = jsonify(rows)
+    resp.status_code=200
+    return resp
     
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0', port=3000, debug=True)
+    app.run(port=PORT, debug=DEBUG)

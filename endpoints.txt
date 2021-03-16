@@ -1,0 +1,75 @@
+cambiar las etiquetas <tipoActa> y <sec> por los valores de busqueda
+
+Trae toda la base de datos
+https://service-ine-testing.herokuapp.com/historyService
+
+Trae la base de datos filtrada por Tipo de acta
+https://service-ine-testing.herokuapp.com/historyService/filterTipoActa=<tipoActa>
+
+Trae la base de datos filtrada por Tipo de acta y Sec
+https://service-ine-testing.herokuapp.com/historyService/filterSec=<sec>&filterTipoActa=<tipoActa>
+
+Trae la base de datos filtrada por ShaMCAD
+https://service-ine-testing.herokuapp.com/historyService/filterShaMCAD=<shaMCAD>
+
+Crea una Acta
+https://service-ine-testing.herokuapp.com/createAtc
+
+Trae todos los datos de terminalMCAD 
+https://service-ine-testing.herokuapp.com/terminalMCAD
+
+Trae los datos de terminalMCAD por Tipo de acta
+https://service-ine-testing.herokuapp.com/terminalMCAD/filterTipoActa=<tipoActa>
+
+Trae los datos de terminalMCAD por Tipo de acta y Sec
+https://service-ine-testing.herokuapp.com/terminalMCAD/filterSec=<sec>&filterTipoActa=<tipoActa>
+
+Trae los datos de terminalMCAD por ShaMCAD
+https://service-ine-testing.herokuapp.com/terminalMCAD/filterShaMCAD=<shaMCAD>
+
+Trae todos los datos para rellenat TCA
+https://service-ine-testing.herokuapp.com/ValuesTCA
+
+Trae todos los datos para rellenat TCA por Tipo de acta y sec
+https://service-ine-testing.herokuapp.com/ValuesTCA/filterSec=<sec>&filterTipoActa=<tipoActa>
+
+Trae todos los datos para rellenat TCA por ShaMCAD
+https://service-ine-testing.herokuapp.com/ValuesTCA/filterShaMCAD=<shaMCAD>
+
+Trae el historial de una acta para saber por cuales terminales TCA ha pasado busqueda por Tipo de acta y sec
+https://service-ine-testing.herokuapp.com/HistoryTCA/filterSec=<sec>&filterTipoActa=<tipoActa>
+
+Trae el historial de una acta para saber por cuales terminales TCA ha pasado busqueda por ShaMCAD
+https://service-ine-testing.herokuapp.com/HistoryTCA/filterShaMCAD=<shaMCAD>
+
+Guarda los datos para registar que ya se aplico la aplicacion TCA en una acta
+https://service-ine-testing.herokuapp.com/addTCA
+(es un metodo PUT) su estructura es la siguiente
+{
+    "Sec": 1,
+    "TipoActa": 1,
+    "IpTCA": "0.0.0.1",
+    "UsuarioTCA": "0.0.0.1"
+}
+
+Guarda los datos para registar que ya se aplico la aplicacion TCA en una acta por ShaMCAD
+https://service-ine-testing.herokuapp.com/addTCAbyShaMCAD
+(es un metodo PUT) su estructura es la siguiente
+{
+    "ShaMCAD": 1,
+    "IpTCA": "0.0.0.1",
+    "UsuarioTCA": "0.0.0.1"
+}
+
+Guarda los datos para registar que ya se aplico la aplicacion de cotejo en una acta
+https://service-ine-testing.herokuapp.com/addCOT
+(es un metodo PUT) su estructura es la siguiente
+{
+    "Sec": 1,
+    "TipoActa": 1,
+    "IpCotejo": "0.0.0.1",
+    "UsuarioCotejo": "0.0.0.1"
+}
+
+Borra solo una acta la busca por sec y tipo de acta
+https://service-ine-testing.herokuapp.com/upsi/filterSec=<sec>&filterTipoActa=<tipoActa>
