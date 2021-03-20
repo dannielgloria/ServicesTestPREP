@@ -399,10 +399,53 @@ def delete_actBy():
     conn = mysql.connect()
     cur = conn.cursor(pymysql.cursors.DictCursor)
     cur.execute('DELETE FROM ServiceTable WHERE Sec = %s AND TipoAct = %s;',  (sec,tipoActa))
-    rows = cur.fetchall()
+    conn.commit()
     resp = jsonify(rows)
     resp.status_code=200
     return resp
+
+@app.route('/updateShaTCA', methods=['PUT'])
+def update_shaTCA():
+    if request.method == 'PUT':
+        json_data = request.get_json()
+        sec = json_data['Sec']
+        tipoActa = json_data['TipoActa']
+        shaTCA = json_data['ShaTCA']
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute('UPDATE ServiceTable SET ShaTCA = %s WHERE Sec = %s AND TipoActa = %s ;', (shaTCA,sec,tipoActa))
+        conn.commit()
+        resp = jsonify(cur.rowcount)
+        resp.status_code=200
+        return = resp
+
+@app.route('/updateShaMCAD', methods=['PUT'])
+def update_shaMCAD():
+    if request.method == 'PUT':
+        json_data = request.get_json()
+        sec = json_data['Sec']
+        tipoActa = json_data['TipoActa']
+        shaMCAD = json_data['ShaMCAD'] 
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute('UPDATE ServiceTable SET ShaMCAD = %s WHERE Sec = %s AND TipoActa = %s ;', (shaMCAD,sec,tipoActa))
+        conn.commit()
+        resp = jsonify(cur.rowcount)
+        resp.status_code=200
+        return resp
+
+@app.route('/updateShaCotejo', methods=['PUT'])
+    if request.method =='PUT':
+        json_data =request.get_json()
+        sec = json_data['Sec']
+        tipoActa = json_data['TipoActa']
+        shaCotejo = json_data['ShaCotejo']
+        conn = mysql.connect()
+        cur.execute('UPDATE ServiceTable SET ShaCotejo = %s WHERE Sec = %s AND TipoActa = %s ;', (ShaCotejo,sec,tipoActa))
+        con.comit()
+        resp = jsonify(cur.rowcount)
+        resp.status_code=200
+        return = resp
     
 if __name__ == '__main__':
     app.run(port=PORT, debug=DEBUG)
