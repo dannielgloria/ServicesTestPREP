@@ -10,6 +10,7 @@ Contenido
     *   [Endpoints para la aplicacion MCAD](#mcad)
     *   [Endpoints para la aplicacion TCA](#html)
     *   [Endpoints para la aplicacion Cotejo](#cotejo)
+    *   [Endpoints para la aplicacion Cotejo](./endpoints.txt)
 *   [Configuracion](#settings)
 * * *
 
