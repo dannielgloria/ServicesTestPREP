@@ -8,8 +8,8 @@ Contenido
 ================
 *   [Endpoints del servicio](#ednpoints)
     *   [Endpoints para la aplicacion MCAD](#mcad)
-    *   [Inline HTML](#html)
-    *   [Automatic Escaping for Special Characters](#autoescape)
+    *   [Endpoints para la aplicacion TCA](#html)
+    *   [Endpoints para la aplicacion Cotejo](#cotejo)
 *   [Configuracion](#settings)
 * * *
 
