@@ -82,7 +82,7 @@ https://service-ine-testing.herokuapp.com/updateShaTCA
         "ShaTAC": "2439oy75roiy8v6"
     }
 
-Actualizar atributo de ShaTCA
+Actualizar atributo de ShaMCAD
 https://service-ine-testing.herokuapp.com/updateShaMCAD
 {
         "Sec": 1,
@@ -90,7 +90,7 @@ https://service-ine-testing.herokuapp.com/updateShaMCAD
         "ShaMCAD": "wxec8vibon9ve67n097b468eb6"
     }
 
-Actualizar atributo de ShaTCA
+Actualizar atributo de ShaCotejo
 https://service-ine-testing.herokuapp.com/updateShaCotejo
 {
         "Sec": 1,
