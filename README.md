@@ -13,8 +13,8 @@ Contenido
 *   [Configuracion](./setting.md/#settings)
 * * *
 
-Developed by 
-   **Daniel Gloria Florencio** - [dannielgloria](https://github.com/dannielgloria)
-   **Eduardo Cruzo** - [Eduardo-Cruz2020](https://github.com/Eduardo-Cruz2020)
-   **Ximena Jimenez** - [Suemy-893](https://github.com/Suemy-893)
+Developed by<br> 
+   **Daniel Gloria Florencio** - [dannielgloria](https://github.com/dannielgloria)<br>
+   **Eduardo Cruzo** - [Eduardo-Cruz2020](https://github.com/Eduardo-Cruz2020)<br>
+   **Ximena Jimenez** - [Suemy-893](https://github.com/Suemy-893)<br>
    **Fernanda Marcelín** - [FerMarcelin](https://github.com/FerMarcelin)
