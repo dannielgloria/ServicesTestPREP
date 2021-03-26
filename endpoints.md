@@ -1,8 +1,8 @@
 <h1 id="ednpoints">Endpoints del servicio</h1>
 
-*   [Endpoints para la aplicacion MCAD](./endpoints.md/#mcad)<br>
-*   [Endpoints para la aplicacion TCA](./endpoints.md/#html)<br>
-*   [Endpoints para la aplicacion Cotejo](./endpoints.md/#cotejo)<br>
+*   [Endpoints para la aplicacion MCAD](#mcad)<br>
+*   [Endpoints para la aplicacion TCA](#tca)<br>
+*   [Endpoints para la aplicacion Cotejo](#cotejo)<br>
 
 **Nota:** Cambiar las etiquetas `<sec>`, `<tipoActa>`, `<shaMCAD>`, `<shaTCA>` y `<ShaCotejo>` por los valores de busqueda.
 
