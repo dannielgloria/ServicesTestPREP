@@ -190,6 +190,24 @@ https://service-ine-testing.herokuapp.com/updateShaTCA
 }
 ```
 
+<br>-Actualiza el campo ShaMCAD y flag de acuerdo al acta<br>
+(es un metodo PUT) su estructura es la siguiente:
+```url
+https://service-ine-testing.herokuapp.com/terminalMCAD/addShaMCAD
+```
+```json
+{
+    "TipoQR": "Escaner",
+    "Estado": "CDMX",
+    "Distrito": 1,
+    "Seccion": "S1",
+    "Casilla": 1,
+    "TipoActa": 1,
+    "ShaMCAD": "2439oy75roiy8v6"
+}
+```
+
+
 <h2 id="cotejo">Endpoints para la aplicacion cotejo</h2>
 
 <br>-Trae un acta filtrada por ShaCotejo.
