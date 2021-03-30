@@ -227,7 +227,7 @@ def get_aTCAbySecATipoAct(sec,tipoActa):
 def get_aTCAbyShaTCA(shaTCA):
     conn = mysql.connect()
     cur = conn.cursor(pymysql.cursors.DictCursor)
-    cur.execute('SELECT BolSob,PersVot,TotPVnRep,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,C1,C2,C3,C4,CNoReg,VotNulos,Tot1,Tot2 FROM ServiceTable WHERE ShaTCA = %s;',(shaTCA))
+    cur.execute('SELECT BolSob,PersVot,PersVot,TotPVnRep,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,C1,C2,C3,C4,CNoReg,VotNulos,Tot1,Tot2 FROM ServiceTable WHERE ShaTCA = %s;',(shaTCA))
     rows = cur.fetchall()
     cur.close()
     resp = jsonify(rows)
