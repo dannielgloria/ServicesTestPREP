@@ -190,7 +190,7 @@ https://service-ine-testing.herokuapp.com/updateShaTCA
 }
 ```
 
-<br>-Actualiza el campo ShaMCAD y flag de acuerdo al acta<br>
+<br>-Actualiza el campo ShaMCAD y flag de acuerdo al acta.<br>
 (es un metodo PUT) su estructura es la siguiente:
 ```url
 https://service-ine-testing.herokuapp.com/terminalMCAD/addShaMCAD
