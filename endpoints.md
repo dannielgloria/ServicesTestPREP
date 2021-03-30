@@ -126,6 +126,23 @@ https://service-ine-testing.herokuapp.com/updateShaMCAD
 https://service-ine-testing.herokuapp.com/tipoActabyShaMCAD=<shaMCAD>
 ```
 
+<br>-Actualiza el campo ShaMCAD y flag de acuerdo al acta.<br>
+(es un metodo PUT) su estructura es la siguiente:
+```url
+https://service-ine-testing.herokuapp.com/terminalMCAD/addShaMCAD
+```
+```json
+{
+    "TipoQR": "Escaner",
+    "Estado": "CDMX",
+    "Distrito": 1,
+    "Seccion": "S1",
+    "Casilla": 1,
+    "TipoActa": 1,
+    "ShaMCAD": "2439oy75roiy8v6"
+}
+```
+
 <h2 id="tca">Endpoints para la aplicacion TCA</h2>
 
 <br>-Trae un acta filtrada por ShaTCA.
@@ -187,23 +204,6 @@ https://service-ine-testing.herokuapp.com/updateShaTCA
     "Sec": 1,
     "TipoActa": 1,
     "ShaTCA": "2439oy75roiy8v6"
-}
-```
-
-<br>-Actualiza el campo ShaMCAD y flag de acuerdo al acta.<br>
-(es un metodo PUT) su estructura es la siguiente:
-```url
-https://service-ine-testing.herokuapp.com/terminalMCAD/addShaMCAD
-```
-```json
-{
-    "TipoQR": "Escaner",
-    "Estado": "CDMX",
-    "Distrito": 1,
-    "Seccion": "S1",
-    "Casilla": 1,
-    "TipoActa": 1,
-    "ShaMCAD": "2439oy75roiy8v6"
 }
 ```
 
