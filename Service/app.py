@@ -195,6 +195,28 @@ def get_allMCADbyShaMCAD(shaMCAD):
     resp.status_code=200
     return resp
 
+#* This endpoint add data to MCAD register
+@app.route('/terminalMCAD/addShaMCAD', methods=['PUT'])
+def update_cotServiceActivity():
+    if request.method == 'PUT':
+        flag = 1
+        json_data = request.get_json()
+        tipoQr = json_data['TipoQR']
+        estado = json_data['Estado']
+        distrito = json_data['Distrito']
+        seccion = json_data['Seccion']
+        casilla = json_data['Casilla']
+        tipoActa = json_data['TipoActa']
+        shaMCAD = json_data['ShaMCAD'] 
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute('UPDATE ServiceTable SET ShaMCAD = %s, Flag = %s WHERE TipoQR = %s, Estado = %s, Distrito = %s, Seccion = %s, Casilla = %s, TipoActa = %s ;', (shaMCAD,flag,tipoQr,estado,distrito,seccion,casilla,tipoActa))
+        conn.commit()
+        resp = jsonify(cur.rowcount)
+        print (resp)
+        resp.status_code=200
+        return resp
+
 ##
 #  TCA application endpoints  
 ##
@@ -419,6 +441,7 @@ def get_typeAct(shaMCAD):
     resp = jsonify(rows)
     resp.status_code=200
     return resp
+
 
 if __name__ == '__main__':
     app.run(port=PORT, debug=DEBUG)
