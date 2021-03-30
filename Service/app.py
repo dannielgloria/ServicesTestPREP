@@ -197,7 +197,7 @@ def get_allMCADbyShaMCAD(shaMCAD):
 
 #* This endpoint add data to MCAD register
 @app.route('/terminalMCAD/addShaMCAD', methods=['PUT'])
-def update_cotServiceActivity():
+def update_shaMCADv2():
     if request.method == 'PUT':
         flag = 1
         json_data = request.get_json()
