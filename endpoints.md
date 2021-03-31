@@ -133,18 +133,28 @@ https://service-ine-testing.herokuapp.com/terminalMCAD/addShaMCAD
 ```
 ```json
 {
-    "TipoQR": "Escaner",
-    "Estado": "CDMX",
+    "TipoQR": "CAD",
+    "Estado": "AGS",
     "Distrito": 1,
-    "Seccion": "S1",
-    "Casilla": 1,
-    "TipoActa": 1,
+    "Seccion": "338",
+    "Casilla": "B1",
+    "TipoActa": 2,
     "ShaMCAD": "2439oy75roiy8v6"
 }
 ```
 
 <h2 id="tca">Endpoints para la aplicacion TCA</h2>
 
+<br>-Actualiza el campo ShaMCAD de acuerdo al acta.<br>
+(es un metodo PUT) su estructura es la siguiente:
+```url
+https://service-ine-testing.herokuapp.com/terminalTCA/addShaTCA
+```
+```json
+{
+    "ShaTCA": "2439oy75roiy8v6"
+}
+```
 <br>-Trae un acta filtrada por ShaTCA.
 ```url
 https://service-ine-testing.herokuapp.com/historyService/filterShaTCA=<shaTCA>
@@ -244,6 +254,16 @@ https://service-ine-testing.herokuapp.com/updateShaCotejo
     "Sec": 1,
     "TipoActa": 1,
     "ShaCotejo": "34wc54v5b6np9n6b9v8"
+}
+```
+<br>-Actualiza el campo ShaCotejo y flag de acuerdo al acta.<br>
+(es un metodo PUT) su estructura es la siguiente:
+```url
+https://service-ine-testing.herokuapp.com/terminalCotejo/addShaCotejo
+```
+```json
+{
+    "ShaCotejo": "2439oy75roiy8v6"
 }
 ```
 <br><br>Developed by **Daniel Gloria Florencio** - [dannielgloria](https://github.com/dannielgloria)
