@@ -178,7 +178,7 @@ def get_allMCADbyTipoActa(tipoActa):
 def get_allMCADbyShaCotejo(ShaCotejo):
     conn = mysql.connect()
     cur = conn.cursor(pymysql.cursors.DictCursor)
-    cur.execute('SELECT IpCotejo,UsuarioCotejo,FechaCotejo,Consec,TipoQR,Estado,Distrito,Seccion,Casilla,TipoActa, BolSob, PersVot, TotPVnRep FROM ServiceTable WHERE ShaCotejo = %s;',  (shaCotejo))
+    cur.execute('SELECT IpCotejo,UsuarioCotejo,FechaCotejo,Consec,TipoQR,Estado,Distrito,Seccion,Casilla,TipoActa, BolSob, PersVot, TotPVnRep FROM ServiceTable WHERE ShaCotejo = %s;',  (ShaCotejo))
     rows = cur.fetchall()
     resp = jsonify(rows)
     resp.status_code=200
@@ -195,7 +195,7 @@ def get_allMCADbyShaMCAD(shaMCAD):
     resp.status_code=200
     return resp
 
-#* This endpoint add data to MCAD register
+#* This endpoint sets shaMCAD into a MCAD register (for automatic test)
 @app.route('/terminalMCAD/addShaMCAD', methods=['PUT'])
 def update_shaMCADv2():
     if request.method == 'PUT':
@@ -210,13 +210,55 @@ def update_shaMCADv2():
         shaMCAD = json_data['ShaMCAD'] 
         conn = mysql.connect()
         cur = conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute('UPDATE ServiceTable SET ShaMCAD = %s, Flag = %s WHERE TipoQR = %s, Estado = %s, Distrito = %s, Seccion = %s, Casilla = %s, TipoActa = %s ;', (shaMCAD,flag,tipoQr,estado,distrito,seccion,casilla,tipoActa))
+        cur.execute('SELECT Flag FROM ServiceTable WHERE Flag = 1')
+        rows = cur.fetchone() # rows es un diccionario
+        print (rows)
+        print (type(rows))
+        flag2 = str(rows['Flag']) #Guardamos el valor 
+        if flag2 == 'None':
+            cur.execute('UPDATE ServiceTable SET ShaMCAD = %s, Flag = %s WHERE TipoQR = %s AND Estado = %s AND Distrito = %s AND Seccion = %s AND Casilla = %s AND TipoActa = %s ;', (shaMCAD,flag,tipoQr,estado,distrito,seccion,casilla,tipoActa))
+            conn.commit()
+            resp = jsonify(cur.rowcount)
+            print (resp)
+            resp.status_code=200
+        else:
+            cur.execute('UPDATE ServiceTable SET Flag = -1 WHERE Flag = 1 ;')
+            cur.execute('UPDATE ServiceTable SET ShaMCAD = %s, Flag = %s WHERE TipoQR = %s AND Estado = %s AND Distrito = %s AND Seccion = %s AND Casilla = %s AND TipoActa = %s ;', (shaMCAD,flag,tipoQr,estado,distrito,seccion,casilla,tipoActa))
+            conn.commit()
+            resp = jsonify(cur.rowcount)
+            print (resp)
+            resp.status_code=200
+        return resp
+
+#* This endpoint updates shaTCA into TCA register (for automatic test)
+@app.route('/terminalTCA/addShaTCA', methods=['PUT'])
+def update_shaTCAv2():
+    if request.method == 'PUT':
+        json_data = request.get_json()
+        shaTCA = json_data['ShaTCA'] 
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute('UPDATE ServiceTable SET ShaTCA = %s WHERE Flag = 1 ;', (shaTCA))
         conn.commit()
         resp = jsonify(cur.rowcount)
         print (resp)
         resp.status_code=200
         return resp
 
+#* This endpoint updates shaTCA into TCA register (for automatic test)
+@app.route('/terminalCotejo/addShaCotejo', methods=['PUT'])
+def update_shaCotejov2():
+    if request.method == 'PUT':
+        json_data = request.get_json()
+        shaCotejo = json_data['ShaCotejo'] 
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute('UPDATE ServiceTable SET ShaCotejo = %s, Flag = 0 WHERE Flag = 1 ;', (shaCotejo))
+        conn.commit()
+        resp = jsonify(cur.rowcount)
+        print (resp)
+        resp.status_code=200
+        return resp
 ##
 #  TCA application endpoints  
 ##
