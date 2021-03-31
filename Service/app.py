@@ -213,9 +213,7 @@ def update_shaMCADv2():
         cur.execute('SELECT Flag FROM ServiceTable WHERE Flag = 1')
         rows = cur.fetchone() # rows es un diccionario
         print (rows)
-        print (type(rows))
-        flag2 = str(rows['Flag']) #Guardamos el valor 
-        if flag2 == 'None':
+        if rows == 'None':
             cur.execute('UPDATE ServiceTable SET ShaMCAD = %s, Flag = %s WHERE TipoQR = %s AND Estado = %s AND Distrito = %s AND Seccion = %s AND Casilla = %s AND TipoActa = %s ;', (shaMCAD,flag,tipoQr,estado,distrito,seccion,casilla,tipoActa))
             conn.commit()
             resp = jsonify(cur.rowcount)
