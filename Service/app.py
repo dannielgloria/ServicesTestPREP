@@ -1,3 +1,4 @@
+import re
 import time
 import json
 import pymysql
@@ -205,7 +206,7 @@ def update_shaMCADv2():
         edo = json_data['Estado']
         estado = re.sub(r"[0-9 . -]+", "" ,edo)
         dist = json_data['Distrito']
-        distrito = re.sub(r"[a-zA-Z . -]+", "" ,distr)
+        distrito = re.sub(r"[a-zA-Z . -]+", "" ,dist)
         seccion = json_data['Seccion']
         casilla = json_data['Casilla']
         tipoActa = json_data['TipoActa']
