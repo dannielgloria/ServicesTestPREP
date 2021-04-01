@@ -202,8 +202,10 @@ def update_shaMCADv2():
         flag = 1
         json_data = request.get_json()
         tipoQr = json_data['TipoQR']
-        estado = json_data['Estado']
-        distrito = json_data['Distrito']
+        edo = json_data['Estado']
+        estado = re.sub(r"[0-9 . -]+", "" ,edo)
+        dist = json_data['Distrito']
+        distrito = re.sub(r"[a-zA-Z . -]+", "" ,distr)
         seccion = json_data['Seccion']
         casilla = json_data['Casilla']
         tipoActa = json_data['TipoActa']
